@@ -59,7 +59,7 @@ VALUES
 INSERT INTO gifts (gift, giver, price, previously_regifted)
 VALUES
 ('lavender candle', 'Sister', '8', TRUE),
-('lambo', 'sharjeel', '500,000', FALSE),
+('lambo', 'sharjeel', '5000', FALSE),
 ('soap on a rope', 'ceil block D', '3', TRUE),
 ('vizio', 'sharell', '400', TRUE),
 ('Kendras Boutique Wig', 'Myself', '500', TRUE)
@@ -74,7 +74,7 @@ SELECT * FROM gifts WHERE price >= 20;
 --
 \echo Query for every gift that has the word candle in it, only show the gift column
 --
-SELECT * FROM gifts WHERE gift ILIKE '%Candle%' RETURNING gift;
+SELECT gift FROM gifts WHERE gift ILIKE '%Candle%';
 
 --
 \echo Query for every gift whose giver is Santa OR price is greater than 30
@@ -113,7 +113,7 @@ SELECT * FROM gifts;
  \echo Count the total number of gifts that have the word candle in it
 -- 
 
-SELECT COUNT(gift) WHERE gift ILIKE '%Candle%';
+SELECT COUNT(gift) FROM gifts WHERE gift ILIKE '%candle%';
 --
 \echo Get the AVEREAGE price from all the gifts
 --
@@ -122,7 +122,7 @@ SELECT AVG(price) FROM gifts;
 -- 
  \echo Limit to 3 gifts, offset by 2 and order by price descending
 --
-SELECT * FROM gifts LIMIT 3 OFFSET 2 ORDER BY price DESC;
+SELECT * FROM gifts ORDER BY price DESC LIMIT 3 OFFSET 2 ;
 --
 -- finish
 --
