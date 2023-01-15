@@ -84,7 +84,7 @@ SELECT gift FROM gifts WHERE giver ILIKE '%santa%' OR price > 30;
 \echo Query for every gift whose giver is NOT Santa
 --
 
---SELECT gift FROM gifts WHERE giver <> '%santa';
+--SELECT gift FROM gifts WHERE giver not LIKE '%santa';
 SELECT gifts FROM gifts WHERE giver <> 'santa';
 --
 \echo Update the second gift to have a value of 2999
@@ -113,16 +113,17 @@ SELECT * FROM gifts;
  \echo Count the total number of gifts that have the word candle in it
 -- 
 
-
+--SELECT SUM(price) FROM gifts WHERE gift = 'candle';
+SELECT SUM(price) as candle FROM gifts WHERE gift = 'candle';
 --
 \echo Get the AVEREAGE value from all the gifts
 --
 
-
+SELECT AVG(price) FROM gifts;
 -- 
  \echo Limit to 3 gifts, offset by 2 and order by price descending
 --
-
+SELECT * FROM gifts LIMIT 3 OFFSET 2 ORDER BY price DESC;
 --
 -- finish
 --
