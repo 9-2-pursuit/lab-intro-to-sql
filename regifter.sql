@@ -63,7 +63,7 @@ VALUES
 ('potpurri', 'Rudolf', 9, TRUE), 
 ('mango candle', 'The Boss', 19, TRUE), 
 ('cinnamon candle', 'Santa', 39, TRUE), 
-('peach candle', 'Elf on the Shelf', 29, FALSE);;
+('peach candle', 'Elf on the Shelf', 29, FALSE);
 
 
 --
@@ -74,7 +74,7 @@ SELECT * FROM gifts WHERE price >= 20;
 --
 \echo Query for every gift that has the word candle in it, only show the gift column
 --
-SELECT * FROM gifts WHERE gift ILIKE 'candle' RETURNING gift;
+SELECT gift FROM gifts WHERE gift ILIKE '%candle%';
 
 --
 \echo Query for every gift whose giver is Santa OR price is greater than 30
@@ -84,7 +84,7 @@ SELECT * FROM gifts WHERE giver = 'Santa' OR price > 30;
 --
 \echo Query for every gift whose giver is NOT Santa
 --
-SELECT * FROM gifts WHERE giver != "Santa";
+SELECT * FROM gifts WHERE giver != 'Santa';
 
 --
 \echo Update the second gift to have a value of 2999
@@ -112,17 +112,17 @@ SELECT * FROM gifts;
 --
  \echo Count the total number of gifts that have the word candle in it
 -- 
-SELECT COUNT(gift ILKE '%candle%') from gifts;
+SELECT COUNT(gift) FROM gifts WHERE gift ILIKE '%candle%';
 
 --
-\echo Get the AVEREAGE price from all the gifts
+\echo Get the AVERAGE price from all the gifts
 --
 SELECT AVG(price) FROM gifts;
 
 -- 
  \echo Limit to 3 gifts, offset by 2 and order by price descending
 --
-SELECT * FROM gifts LIMIT 3 OFFSET 2 ORDER BY price DESC;
+SELECT * FROM gifts ORDER BY price DESC LIMIT 3 OFFSET 2;
 --
 -- finish
 --
