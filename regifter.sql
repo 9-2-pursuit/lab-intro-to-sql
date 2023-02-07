@@ -17,49 +17,68 @@ CREATE DATABASE regifter;
 -- previously_regifted boolean
 
 
+--
+CREATE TABLE gifts (
+    id serial primary KEY,
+    gift text,
+    giver text,
+    price int,
+    previously_regifted boolean
+);
+--
+
 -- 
 \echo See details of the table you created
 -- 
-
+SELECT * FROM gifts;
 
 -- 
 \echo Alter the table so that the column price is changed to value 
--- 
-
-
+--
+ALTER TABLE gifts 
+RENAME COLUMN price 
+TO value;
 -- 
 \echo Insert a peach candle, given by 'Santa' thats value is 9 and has been previously regifted
 -- 
-
+INSERT INTO gifts (gift, giver, value, previously_regifted)
+VALUES ('peach candle', 'santa', 9, TRUE);
 
 --
 \echo Query for all the columns in your gifts table
 -- 
-
+SELECT * FROM gifts;
 
 --
 \echo Uncomment below to insert 5 more gifts
 -- 
 
--- INSERT INTO gifts (gift, giver, value, previously_regifted)
--- VALUES
--- ('peach candle', 'Santa', '9', TRUE),
--- ('cinnamon candle', 'Nick', '19', TRUE),
--- ('soap on a rope', 'Rudolf', '29', FALSE),
--- ('potpurri', 'Elf on the Shelf', '39', TRUE),
--- ('mango candle', 'The Boss', '49', FALSE)
--- ;
+INSERT INTO gifts (gift, giver, value, previously_regifted)
+VALUES
+('peach candle', 'Santa', '9', TRUE),
+('cinnamon candle', 'Nick', '19', TRUE),
+('soap on a rope', 'Rudolf', '29', FALSE),
+('potpurri', 'Elf on the Shelf', '39', TRUE),
+('mango candle', 'The Boss', '49', FALSE)
+;
 
 -- 
 \echo Insert 5 more gifts of your own choosing,  include 1 more candle
 --
-
+INSERT INTO gifts (gift, giver, value, previously_regifted)
+VALUES
+('apple candle', 'Santa', '9', TRUE),
+('tree candle', 'Nick', '19', TRUE),
+('soap fresh', 'Rudolf', '29', FALSE),
+('potpurri candle', 'Elf on the Shelf', '39', TRUE),
+('coconut candle', 'The Boss', '49', FALSE)
+;
 
 
 --
 \echo Query for gifts with a price greater than or equal to 20
 --
-
+SELECT * FROM gifts WHERE value >= 20;
 
 --
 \echo Query for every gift that has the word candle in it, only show the gift column
@@ -69,32 +88,42 @@ CREATE DATABASE regifter;
 --
 \echo Query for every gift whose giver is Santa OR value is greater than 30
 --
-
+SELECT * FROM gifts WHERE value >30 OR giver = 'Santa';
 
 --
 \echo Query for every gift whose giver is NOT Santa
 --
-
+SELECT * FROM gifts WHERE UPPER (giver) != 'SANTA';
 
 --
 \echo Update the second gift to have a value of 2999
 -- 
+-- UPDATE table_name
+-- SET column1 = value1,
+--     column2 = value2,
+--     ...
+-- WHERE condition;
 
-
+-- SELECT * FROM gifts WHERE id= 2;
+UPDATE gifts SET value=2999 WHERE id=2;
 --
 \echo Query for the updated item
 --
+SELECT * FROM gifts WHERE id=2;
 
 
 --
 \echo Delete all the gifts from Santa and return the 'value' and 'gift' of the gift you have deleted
 --
+-- DELETE FROM table_name
+-- WHERE condition
+-- RETURNING (select_list | *)
 
-
+DELETE FROM gifts WHERE UPPER(giver)= 'SANTA' RETURNING (value, gift);
 --
 \echo Query for all the columns in your gifts table one more time
 --
-
+SELECT * FROM gifts;
 
 
 -- BONUSES
@@ -112,7 +141,7 @@ CREATE DATABASE regifter;
 -- 
  \echo Limit to 3 gifts, offset by 2 and order by price descending
 --
-
+ SELECT * FROM gifts ORDER BY value DESC LIMIT 3 OFFSET 2 ;
 --
 -- finish
 --
