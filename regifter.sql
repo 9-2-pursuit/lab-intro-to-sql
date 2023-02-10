@@ -83,7 +83,7 @@ SELECT * FROM gifts WHERE value >= 20;
 --
 \echo Query for every gift that has the word candle in it, only show the gift column
 --
-
+SELECT gift FROM gifts WHERE gift LIKE '%candle%';
 
 --
 \echo Query for every gift whose giver is Santa OR value is greater than 30
@@ -131,12 +131,12 @@ SELECT * FROM gifts;
 --
  \echo Count the total number of gifts that have the word candle in it
 -- 
-
+SELECT COUNT(gift) FROM gifts WHERE gift LIKE '%candle%';
 
 --
 \echo Get the AVEREAGE value from all the gifts
 --
-
+SELECT AVG(value) FROM gifts;
 
 -- 
  \echo Limit to 3 gifts, offset by 2 and order by price descending
@@ -146,3 +146,4 @@ SELECT * FROM gifts;
 -- finish
 --
 DROP TABLE IF EXISTS gifts;
+
